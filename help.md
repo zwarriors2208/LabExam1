@@ -38,6 +38,7 @@ INSERT INTO students (Name, Course, Age, City)
 VALUES ('Sam', 'DAI', 23, 'Mumbai');
 
 SELECT * FROM students;
+
 +------+--------+-----+--------+
 | Name | Course | Age | City   |
 +------+--------+-----+--------+
