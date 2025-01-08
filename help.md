@@ -44,3 +44,50 @@ SELECT * FROM students;
 +------+--------+-----+--------+
 | Sam  | DAI    |  23 | Mumbai |
 +------+--------+-----+--------+
+
+
+pip install mysql-connector-python
+import mysql.connector
+
+# Connect to MySQL container
+conn = mysql.connector.connect(
+    host='127.0.0.1',    # Host is localhost
+    port=8000,           # Port mapped to MySQL container
+    user='root',         # MySQL username
+    password='root@123', # MySQL password
+    database='student_db' # The database to connect to
+)
+
+# Create a cursor object using the connection
+cursor = conn.cursor()
+
+# SQL query to insert a new student record
+insert_query = """
+INSERT INTO students (Name, Course, Age, City)
+VALUES (%s, %s, %s, %s)
+"""
+
+# Data to insert
+student_data = ('Alice', 'Python', 22, 'New York')
+
+# Execute the query
+cursor.execute(insert_query, student_data)
+
+# Commit the transaction
+conn.commit()
+
+# Print confirmation
+print("Data inserted successfully!")
+
+# Optional: Verify the insertion by fetching data from the table
+cursor.execute("SELECT * FROM students")
+rows = cursor.fetchall()
+
+# Print the rows
+print("\nStudents Table:")
+for row in rows:
+    print(row)
+
+# Close the cursor and connection
+cursor.close()
+conn.close()
